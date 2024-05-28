@@ -1,24 +1,27 @@
 pipeline {
     agent any
-
-    environment {
-        PROJECT_NAME = 'semester project'
+    
+    tools {
+        jdk 'JDK11' 
     }
-
+    
     stages {
-        stage('Checkout') {
+        stage('Build') {
             steps {
-                checkout scm
-            }
+                echo 'Application build stage...' 
+                sh 'javac semester-project.java'
         }
-
-     
-
-          }
-
-    post {
-        always {
-            cleanWs()
+       }
+        stage('Test') {
+            steps {
+                echo 'Application test stage' 
+        }
+        }
+        stage('Run') {
+            steps {
+                echo 'Application run stage' 
+                sh 'java program'
+            }
         }
     }
 }
