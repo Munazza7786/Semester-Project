@@ -14,17 +14,12 @@ pipeline {
 
      
 
-        stage('Run Script') {
-            steps {
-                sh '''
-                # Activate virtual environment
-                source venv/bin/activate
+       stage('Run Script') {
+    steps {
+        sh 'java -jar semester-project.java'
+    }
+}
 
-                # Run the Python script
-                java semester_project.java
-                '''
-            }
-        }
     }
 
     post {
