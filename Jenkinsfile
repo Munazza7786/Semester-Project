@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    environment {
+        PROJECT_NAME = 'Semester Project'
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -11,7 +15,20 @@ pipeline {
         stage('Setup Python') {
             steps {
                 sh '''
-                python3 -m venv venv
+                if ! command -v python3 &> /dev/null
+                then
+                    echo "Python3 could not be found"
+                    exit 1
+                fi
+                
+                if ! python3 -m venv venv &> /dev/null
+                then
+                    echo "Creating virtual environment failed. Installing python3-venv."
+                    sudo apt-get update
+                    sudo apt-get install -y python3-venv
+                    python3 -m venv venv
+                fi
+                
                 source venv/bin/activate
                 pip install --upgrade pip
                 '''
