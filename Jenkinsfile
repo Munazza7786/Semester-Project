@@ -14,13 +14,7 @@ pipeline {
 
      
 
-       stage('Run Script') {
-    steps {
-        sh 'java -jar semester-project.java'
-    }
-}
-
-    }
+          }
 
     post {
         always {
